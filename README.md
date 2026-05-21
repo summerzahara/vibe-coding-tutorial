@@ -1,6 +1,6 @@
 # Vibe Apps
 
-Two tools built with Next.js, Vercel AI SDK, and a Clay-inspired design system.
+Three tools built with Next.js, Vercel AI SDK, and a Clay-inspired design system.
 
 ---
 
@@ -44,6 +44,33 @@ Comes preloaded with a clothing store sales dataset (116 orders, Aug–Oct 2025)
 
 ---
 
+## The Content Engine
+
+A YouTube project idea generator for fractional data analysts.
+
+Enter a skill or knowledge area and the Content Engine streams back 4 detailed, buildable project ideas — each one a complete brief you can pick up and execute. Every idea is grounded in a real, accessible dataset and includes a concrete deliverable, step-by-step instructions, and a YouTube narrative arc so you know exactly how to film it.
+
+Designed for solo consultants and freelance analysts who want to build an audience and attract clients through technical content.
+
+### Features
+
+- **Skill-to-project generation** — describe any data skill or topic and get 4 tailored project briefs
+- **Full project briefs** — each idea includes a business scenario, named dataset with source, deliverable description, 4–6 ordered steps, tool stack, client-facing skill signal, and video hook + narrative
+- **Optional context** — narrow results by target client type (e.g. "e-commerce founders") and preferred video format (tutorial, case study, tool demo, etc.)
+- **Copy title** — one-click copy for each video title
+- **Streaming results** — ideas appear card by card as the model generates them
+- **Bring your own API key** — same multi-provider setup as The Tiebreaker
+
+### How it works
+
+1. Add your API key via the **AI Provider** panel
+2. Describe the skill or knowledge area you want to showcase (e.g. *"SQL window functions"*, *"customer churn prediction with Python"*, *"building executive dashboards in Tableau"*)
+3. Optionally expand **Optional context** to specify a target client type or preferred video format
+4. Click **Generate Project Ideas** — 4 detailed project briefs stream in
+5. Use the **Copy title** button on any card to grab a YouTube-ready title
+
+---
+
 ## Getting Started
 
 ### 1. Install dependencies
@@ -61,9 +88,9 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 3. Add your API key (Tiebreaker only)
+### 3. Add your API key (Tiebreaker and Content Engine)
 
-The Tiebreaker requires an API key. Click **AI Provider** at the top of the page, choose your provider, paste your key, and click **Save Key**. The key is stored in your browser's `localStorage` and sent only to the local Next.js server to make the AI call.
+The Tiebreaker and Content Engine both require an API key. Click **AI Provider** at the top of either page, choose your provider, paste your key, and click **Save Key**. The key is stored in your browser's `localStorage` and sent only to the local Next.js server to make the AI call. It is shared across both AI-powered apps.
 
 | Provider | Where to get a key |
 |---|---|
@@ -95,13 +122,17 @@ The Sales Dashboard works without any API key.
 ```
 tiebreaker/
 ├── app/
-│   ├── api/analyze/route.ts      # AI streaming endpoint (Tiebreaker)
-│   ├── dashboard/page.tsx        # Sales Dashboard page
-│   ├── layout.tsx                # Shared layout + navbar
-│   └── page.tsx                  # Tiebreaker UI
+│   ├── api/
+│   │   ├── analyze/route.ts          # AI streaming endpoint (Tiebreaker)
+│   │   └── generate-ideas/route.ts   # AI streaming endpoint (Content Engine)
+│   ├── dashboard/page.tsx            # Sales Dashboard page
+│   ├── ideas/page.tsx                # Content Engine page
+│   ├── layout.tsx                    # Shared layout + navbar
+│   └── page.tsx                      # Tiebreaker UI
 ├── components/
-│   ├── navbar.tsx                # Shared navigation
-│   ├── api-key-settings.tsx      # Provider + key management
+│   ├── navbar.tsx                    # Shared navigation
+│   ├── api-key-settings.tsx          # Provider + key management
+│   ├── idea-card.tsx                 # Content Engine result card
 │   ├── pros-cons-result.tsx
 │   ├── comparison-result.tsx
 │   ├── swot-result.tsx
@@ -110,12 +141,13 @@ tiebreaker/
 │       ├── revenue-chart.tsx
 │       ├── product-chart.tsx
 │       ├── payment-donut.tsx
-│       ├── upload-zone.tsx       # File upload + drag-and-drop
-│       └── dynamic-dashboard.tsx # Auto-generated charts for uploads
+│       ├── upload-zone.tsx           # File upload + drag-and-drop
+│       └── dynamic-dashboard.tsx    # Auto-generated charts for uploads
 └── lib/
-    ├── types.ts                  # Tiebreaker Zod schemas
-    ├── sales-data.ts             # Demo dataset + filter/compute helpers
-    └── parse-upload.ts           # CSV/Excel parser + column type detection
+    ├── types.ts                      # Tiebreaker Zod schemas
+    ├── idea-schema.ts                # Content Engine Zod schema
+    ├── sales-data.ts                 # Demo dataset + filter/compute helpers
+    └── parse-upload.ts               # CSV/Excel parser + column type detection
 ```
 
 ---
