@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ScaleIcon, BarChart2Icon } from "lucide-react";
+import { ScaleIcon, BarChart2Icon, VideoIcon } from "lucide-react";
 
 const navItems = [
-  { href: "/", label: "Tiebreaker", icon: ScaleIcon },
-  { href: "/dashboard", label: "Sales Dashboard", icon: BarChart2Icon },
+  { href: "/",          label: "Tiebreaker",      icon: ScaleIcon },
+  { href: "/dashboard", label: "Sales Dashboard",  icon: BarChart2Icon },
+  { href: "/ideas",     label: "Content Engine",   icon: VideoIcon },
 ];
 
 export function Navbar() {
